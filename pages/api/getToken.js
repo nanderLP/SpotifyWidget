@@ -2,7 +2,7 @@ import btoa from "btoa";
 
 export default (req, res) => {
   return new Promise((resolve) => {
-    const code = req.query.code;
+    const { code } = req.query;
     const grant_type = "authorization_code";
     const redirect_uri = process.env.NEXT_PUBLIC_REDIRECT_URI;
     if (!code) {
