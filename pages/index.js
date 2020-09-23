@@ -8,10 +8,8 @@ export default function Home() {
   const accessToken = Cookies.get("access_token");
 
   return (
-    <div>
-      <main>
+    <div className="container">
         {!accessToken ? <LoginComponent /> : <PlayerComponent token={accessToken}/>}
-      </main>
     </div>
   );
 }

@@ -10,6 +10,7 @@ export default function Callback(props) {
   fetch("/api/getToken?code=" + code)
     .then((response) => response.json())
     .then((res) => {
+      console.log(res);
       Cookies.set("access_token", res.access_token);
       Cookies.set("refresh_token", res.refresh_token);
     });
