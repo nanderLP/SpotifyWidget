@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import LoginComponent from "../components/LoginComponent"
+import LoginComponent from "../components/LoginComponent";
 import PlayerComponent from "../components/PlayerComponent";
 
 export default function Home() {
@@ -9,7 +9,11 @@ export default function Home() {
 
   return (
     <div className="container">
-        {!accessToken ? <LoginComponent /> : <PlayerComponent token={accessToken}/>}
+      {!accessToken ? (
+        <LoginComponent />
+      ) : (
+        <PlayerComponent token={accessToken} />
+      )}
     </div>
   );
 }
