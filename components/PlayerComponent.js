@@ -14,16 +14,26 @@ export default function PlayerComponent(props) {
     { initialData: props.data }
   );
 
-  return (
-    <main className={styles.main}>
-      <p>{data.item.name}</p>
-    </main>
-  );
-}
+  let content;
+  if (error) {
+    content = (
+      <div>
+        <p>An Error occured! {error}</p>
+      </div>
+    );
+  } else if (!data) {
+    content = (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
+  } else if (data) {
+    content = (
+      <div>
+        <p>{data.item.name}</p>
+      </div>
+    );
+  }
 
-export async function getStaticProps() {
-  const data = fetcher('https://api.spotify.com/v1/me/player', {
-    headers: { Authorization: "Bearer " + access_token },
-  });
-  return { props: { data } };
+  return <main className={styles.main}>{content}</main>;
 }
