@@ -1,7 +1,6 @@
-import styles from "../styles/Player.module.scss";
+import styles from "styles/Player.module.scss";
 import useSWR from "swr";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import { fetcher } from "lib/fetcher";
 
 export default function PlayerComponent(props) {
   const access_token = props.token;
@@ -11,7 +10,9 @@ export default function PlayerComponent(props) {
       fetcher(url, {
         headers: { Authorization: "Bearer " + access_token },
       }),
-    { initialData: props.data }
+    {
+      refreshInterval: 2000,
+    }
   );
 
   let content;
@@ -28,11 +29,20 @@ export default function PlayerComponent(props) {
       </div>
     );
   } else if (data) {
-    content = (
-      <div>
-        <p>{data.item.name}</p>
-      </div>
-    );
+    console.log(data);
+    if (!data.item) {
+      content = (
+        <div>
+          <p>Nothing is played right now...</p>
+        </div>
+      );
+    } else {
+      content = (
+        <div>
+          <p>{data.item.name}</p>
+        </div>
+      );
+    }
   }
 
   return <main className={styles.main}>{content}</main>;

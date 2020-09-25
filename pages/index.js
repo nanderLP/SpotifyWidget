@@ -1,18 +1,19 @@
 import Cookies from "js-cookie";
-import LoginComponent from "../components/LoginComponent";
-import PlayerComponent from "../components/PlayerComponent";
+import LoginComponent from "components/LoginComponent";
 
 export default function Home() {
-  if (typeof window == "undefined") return <div></div>;
-
-  const accessToken = Cookies.get("access_token");
+  const access_token = Cookies.get("access_token") === 'undefined' ? null : Cookies.get("access_token") 
+  const refresh_token = Cookies.get("refresh_token") === 'undefined' ? null : Cookies.get("refresh_token") 
 
   return (
     <div className="container">
-      {!accessToken ? (
+      {!refresh_token ? (
         <LoginComponent />
       ) : (
-        <PlayerComponent token={accessToken} />
+        <div className="content">
+          <p>Please add a new Browser Source in OBS with the URL</p>
+          <p>{`https://spotifywidget.vercel.app/player?access_token=${access_token}&refresh_token=${refresh_token}`}</p>
+        </div>
       )}
     </div>
   );
