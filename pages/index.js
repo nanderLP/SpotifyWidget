@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      {!refresh_token ? (
+      {!access_token ? (
         <LoginComponent />
       ) : (
         <div className="content">
