@@ -8,21 +8,9 @@ import { useRouter } from "next/router";
 export default function PlayerComponent(props) {
   const router = useRouter();
   const [tokens, setTokens] = useState({
-    access_token: Cookies.get("access_token") || props.access_token,
-    refresh_token: Cookies.get("refresh_token") || props.refresh_token,
+    access_token: Cookies.get("access_token") || props.query.access_token,
+    refresh_token: Cookies.get("refresh_token") || props.query.refresh_token,
   });
-
-  /*fetch("/api/refreshToken?refresh_token=" + refresh_token).then(
-    (response) =>
-      response.json().then((response) => {
-        if (response.refresh_token)
-          Cookies.set("refresh_token", response.refresh_token);
-        Cookies.set("access_token", response.access_token, {
-          expires: 1 / 24, // one hour
-        });
-        //        if (window !== 'undefined') router.reload();
-      })
-  );*/
 
   const { data, error } = useSWR(
     "https://api.spotify.com/v1/me/player",
@@ -34,12 +22,9 @@ export default function PlayerComponent(props) {
       refreshInterval: 2000,
     }
   );
-
-  console.log(data);
   let content;
   if (error) {
-    console.log(error);
-    return <p>An Error has occurred!</p>;
+    return <p>An internal Server Error has occurred!</p>;
   } else if (!data) {
     content = (
       <div>
@@ -47,11 +32,27 @@ export default function PlayerComponent(props) {
       </div>
     );
   } else if (data) {
+    if(data.error) {
+      console.log('ERROR GEFUNDEN');
+      if (data.error.status === 401) {
+        // access_token expired
+        fetch("/api/refreshToken?refresh_token=" + tokens.refresh_token).then(
+          (response) =>
+            response.json().then((response) => {
+              if (response.refresh_token)
+                Cookies.set("refresh_token", response.refresh_token);
+              Cookies.set("access_token", response.access_token);
+              router.reload()
+            })
+        );
+      }
+    } else {
     content = (
       <div>
         <p>{data.item.name}</p>
       </div>
     );
+    }
   }
 
   return <main className={styles.main}>{content}</main>;

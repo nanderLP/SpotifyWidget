@@ -6,7 +6,7 @@ export default function Player(props) {
 
   const {access_token, refresh_token} = props;
 
-  if(!access_token && !refresh_token) {
+  if(access_token && refresh_token) {
     Cookies.set("access_token", access_token);
     Cookies.set("refresh_token", refresh_token);
   }
