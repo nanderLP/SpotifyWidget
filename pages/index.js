@@ -1,9 +1,8 @@
 import Cookies from "js-cookie";
 import LoginComponent from "components/LoginComponent";
 
-export default function Home() {
-  const access_token = Cookies.get("access_token") === 'undefined' ? null : Cookies.get("access_token") 
-  const refresh_token = Cookies.get("refresh_token") === 'undefined' ? null : Cookies.get("refresh_token") 
+export default function Home(props) {
+  const { access_token, refresh_token } = props;
 
   return (
     <div className="container">
@@ -17,4 +16,10 @@ export default function Home() {
       )}
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: context.query,
+  };
 }
