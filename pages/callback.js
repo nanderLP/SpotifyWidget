@@ -24,11 +24,10 @@ export default function Callback(props) {
   }
 
   if (data) {
-    Cookies.set("access_token", data.access_token, {
-      expires: 1/12
-    });
-    Cookies.set("refresh_token", data.refresh_token);
-    router.push("/");
+    router.push({
+      pathname: '/',
+      query: {access_token: data.access_token, refresh_token: data.refresh_token}
+    }, '/'); // make it look clean
   }
 
   return (
