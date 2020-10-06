@@ -1,4 +1,5 @@
 import styles from "styles/Player.module.scss";
+import ProgressComponent from "./Player/ProgressComponent"
 import useSWR from "swr";
 import { fetcher } from "lib/fetcher";
 import Cookies from "js-cookie";
@@ -22,18 +23,20 @@ export default function PlayerComponent(props) {
       refreshInterval: 2000,
     }
   );
-  let content;
+
   if (error) {
     return <p>An internal Server Error has occurred!</p>;
-  } else if (!data) {
-    content = (
+  }
+
+  if (!data) {
+    return (
       <div>
         <p>Loading...</p>
       </div>
     );
   } else if (data) {
-    if(data.error) {
-      console.log('ERROR GEFUNDEN');
+    if (data.error) {
+      console.log("ERROR GEFUNDEN");
       if (data.error.status === 401) {
         // access_token expired
         fetch("/api/refreshToken?refresh_token=" + tokens.refresh_token).then(
@@ -42,18 +45,23 @@ export default function PlayerComponent(props) {
               if (response.refresh_token)
                 Cookies.set("refresh_token", response.refresh_token);
               Cookies.set("access_token", response.access_token);
-              router.reload()
+              router.reload();
             })
         );
       }
     } else {
-    content = (
-      <div>
-        <p>{data.item.name}</p>
-      </div>
-    );
+      const item = data.item;
+      const artists = item.artists.map((artist) => artist.name).join(', ');
+      const currentProgress = data.progress_ms
+      const songLength = item.duration_ms
+      const progress = currentProgress / songLength;
+      return (
+        <div className={styles.box}>
+          <p className={styles.title}>{item.name}</p>
+          <ProgressComponent percentage={progress}/>
+          <p className={styles.subtitle}>{artists}</p>
+        </div>
+      );
     }
   }
-
-  return <main className={styles.main}>{content}</main>;
 }
