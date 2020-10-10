@@ -1,12 +1,28 @@
 .box {
-    width: 100%;
-    height: 100%
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(50px);
+  color: #fff;
+  display: flex;
+  //background-color: #12121240;
 }
 
 .title {
-    font-size: 96px;
+  font-size: 4rem;
 }
 
 .subtitle {
-    font-size: 72px
+  font-size: 3.5rem;
+}
+
+.left {
+  float: left;
+  padding-right: 2rem;
+}
+
+.right {
+    float: left;
+}
+.img {
+  width: 100vh;
 }
