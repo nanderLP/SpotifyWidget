@@ -20,7 +20,7 @@ export default function PlayerComponent(props) {
         headers: { Authorization: "Bearer " + tokens.access_token },
       }),
     {
-      refreshInterval: 2000,
+      refreshInterval: 1000,
     }
   );
 
@@ -57,9 +57,11 @@ export default function PlayerComponent(props) {
   } else if (data) {
     const item = data.item;
     const artists = item.artists.map((artist) => artist.name).join(", ");
-    const currentProgress = data.progress_ms;
-    const songLength = item.duration_ms;
+    const currentProgress = 1000*Math.round(data.progress_ms/1000)
+    const songLength = 1000*Math.round(item.duration_ms/1000);
     const progress = currentProgress / songLength;
+    const dProgress = new Date(currentProgress);
+    const dLength = new Date(songLength)
     return (
       <div className={styles.box}>
         <div className={styles.left}>
@@ -70,8 +72,10 @@ export default function PlayerComponent(props) {
             <p className={styles.title}>{item.name}</p>
             <p className={styles.subtitle}>{artists}</p>
           </div>
-          <div>
-            <p></p>
+          <div className={styles.progress}>
+            <p className={styles.textProgress}>
+              {dProgress.getUTCMinutes() + ":" + dProgress.getUTCSeconds()} / {dLength.getUTCMinutes() + ":" + dLength.getUTCSeconds()}
+            </p>
             <ProgressComponent percentage={progress} />
           </div>
         </div>

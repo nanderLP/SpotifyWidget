@@ -4,7 +4,7 @@
   backdrop-filter: blur(50px);
   color: #fff;
   display: flex;
-  //background-color: #12121240;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
 }
 
 .title {
@@ -25,4 +25,14 @@
 }
 .img {
   width: 100vh;
+}
+
+.progress {
+  display: flex;
+}
+
+.textProgress {
+  float: left;
+  font-size: 2rem;
+  margin-right: 1rem
 }
