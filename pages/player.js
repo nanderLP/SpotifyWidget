@@ -1,22 +1,18 @@
-import LoginComponent from "components/LoginComponent";
 import PlayerComponent from "components/PlayerComponent";
 import Cookies from "js-cookie";
 
 export default function Player(props) {
+  const { access_token, refresh_token } = props;
 
-  const {access_token, refresh_token} = props;
-
-  if(access_token && refresh_token) {
-    Cookies.set("access_token", access_token);
-    Cookies.set("refresh_token", refresh_token);
+  if(!Cookies.get('access_token')) {
+    Cookies.set('access_token', access_token)
+    Cookies.set('refresh_token', refresh_token)
   }
 
   return (
-    <div className="container">
-      <main>
-        <PlayerComponent query={props}/>
-      </main>
-    </div>
+    <main>
+      <PlayerComponent query={props} />
+    </main>
   );
 }
 

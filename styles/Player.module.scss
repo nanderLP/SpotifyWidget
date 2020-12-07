@@ -1,2 +1,38 @@
-.main {
+.box {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(50px);
+  color: #fff;
+  display: flex;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.title {
+  font-size: 4rem;
+}
+
+.subtitle {
+  font-size: 3.5rem;
+}
+
+.left {
+  float: left;
+  padding-right: 2rem;
+}
+
+.right {
+    float: left;
+}
+.img {
+  width: 100vh;
+}
+
+.progress {
+  display: flex;
+}
+
+.textProgress {
+  float: left;
+  font-size: 2rem;
+  margin-right: 1rem
 }
