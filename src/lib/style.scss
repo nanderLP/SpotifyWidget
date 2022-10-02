@@ -1,0 +1,66 @@
+$primary: lavenderblush;
+$dark: '(prefers-color-scheme: dark)';
+
+:root {
+	color-scheme: light dark;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
+
+html {
+	font-size: 16px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+p,
+span,
+ul,
+ol {
+	font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+	font-family: 'Figtree', sans-serif;
+}
+
+button {
+	background: $primary;
+	border: none;
+	padding: 1rem 1.5rem;
+	font-size: 1rem;
+	border-radius: 9999px;
+	font-weight: 700;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&:active {
+		scale: 0.97;
+	}
+
+	&:focus {
+		outline: 2px solid #000;
+		outline-offset: 1px;
+	}
+
+	@media #{$dark} {
+		outline-color: #fff;
+		color: black
+	}
+}
