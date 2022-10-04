@@ -12,7 +12,9 @@ export const load: PageServerLoad = async (ctx) => {
 
 	const code = validateResponse(ctx.url, stateCookie);
 
-	const authData = await requestTokens(code, SPOTIFY_CLIENT_SECRET);
+	const redirectUri = `${ctx.url.origin}/callback`;
+
+	const authData = await requestTokens(code, SPOTIFY_CLIENT_SECRET, redirectUri);
 
 	return { authData };
 };
