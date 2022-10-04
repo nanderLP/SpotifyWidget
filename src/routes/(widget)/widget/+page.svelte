@@ -14,27 +14,17 @@
 
 	let albumColors: string;
 
-	const colors = writable<{
-		albumName: string;
-		prominent: Array<string>;
-		average: string;
-		textTop: string;
-		textBottom: string;
-	}>();
-
 	onMount(() => {
 		const interval = setInterval(() => {
 			playback.update();
-			console.log($colors);
 		}, 1500);
 
 		playback.subscribe(async (playback) => {
-			console.log('playback updated');
+			console.log('UPDATE');
 			const { album } = playback;
 			if (albumColors === album.name) return;
 			const averageColor = (await average(playback.album.imageUrl)) as Array<number>;
 			const prominentColors = (await prominent(playback.album.imageUrl)) as Array<Array<number>>;
-			// https://stackoverflow.com/a/635073/19214879
 			const songNameColor = determineTextColor(prominentColors[1]);
 			const artistsColor = determineTextColor(prominentColors[0]);
 			const style = containerElement.style;
@@ -45,13 +35,6 @@
 			style.setProperty('--t-t', songNameColor);
 			style.setProperty('--t-b', artistsColor);
 			albumColors = album.name;
-			/*colors.set({
-				prominent: prominentColors,
-				average: averageColor,
-				albumName: album.name,
-				textTop: songNameColor,
-				textBottom: artistsColor
-			});*/
 		});
 
 		return () => {
@@ -79,12 +62,6 @@
 		background-image: radial-gradient(at 60% 81%, rgb(var(--p-1)) 0px, transparent 50%),
 			radial-gradient(at 71% 40%, rgb(var(--p-2)) 0px, transparent 50%),
 			radial-gradient(at 30% 35%, rgb(var(--p-3)) 0px, transparent 50%);
-
-		/*
-		radial-gradient(at 50% 81%, rgb(199, 179, 198) 0px, transparent 50%), 
-		radial-gradient(at 71% 40%, rgb(77, 199, 79) 0px, transparent 50%), 
-		radial-gradient(at 30% 35%, rgb(219, 179, 198) 0px, transparent 50%)
-		*/
 	}
 
 	#songName {
