@@ -1,5 +1,3 @@
 {
-    "recommendations": [
-        "antfu.unocss"
-    ]
+	"recommendations": ["antfu.unocss"]
 }

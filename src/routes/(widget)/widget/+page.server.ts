@@ -16,8 +16,6 @@ export const load: PageServerLoad = async (ctx) => {
 		const playback = await fetchRemotePlaybackState(accessToken);
 		return { playback };
 	} catch (e: any) {
-		console.log(e);
-
 		if (e.status === 401) {
 			// request refresh
 			const {

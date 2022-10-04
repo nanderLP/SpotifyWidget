@@ -4,10 +4,7 @@ import type { UserConfig } from 'vite';
 import unocss from 'unocss/vite';
 
 const config: UserConfig = {
-	plugins: [
-		sveltekit(),
-		unocss()
-	]
+	plugins: [sveltekit(), unocss()]
 };
 
 export default config;

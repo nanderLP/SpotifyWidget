@@ -7,12 +7,16 @@
 <br>
 
 ## How it works / Overview
+
 This Widget uses the Spotify API to load your current playback and displays it in a handcrafted Widget. The background adapts to the album cover to keep the design linear.
+
 ### Video Preview
+
 <video src="https://user-images.githubusercontent.com/39925779/193896820-b2b6ea2a-0ece-43cf-bb77-e60246884f65.mp4"></video>
 
 ## How to use it / Installation
-- Connect your Spotify Account at https://spotifywidget.vercel.app  
+
+- Connect your Spotify Account at https://spotifywidget.vercel.app
 - Copy the URL returned from the callback and add it as a Browser source to the Streaming program of your choice.
 
 > ℹ️ Note  
@@ -20,10 +24,9 @@ This Widget uses the Spotify API to load your current playback and displays it i
 > Please set the size of your Browser source to match an aspect ratio of approximately 3 / 1.  
 > e.g. 600x200
 
-
 ## License
-MIT License © 2022-PRESENT [Nander](https://nander.dev)
 
+MIT License © 2022-PRESENT [Nander](https://nander.dev)
 
 <sub>
   <strong>Disclaimer</strong> <br>
