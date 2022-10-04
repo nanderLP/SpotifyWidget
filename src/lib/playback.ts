@@ -86,7 +86,9 @@ const createPlaybackStore = (initialData: PlaybackState) => {
 		subscribe,
 		update: async () => {
 			const { accessToken } = getTokensBrowser();
+
 			try {
+				if (!accessToken) throw error(400, 'Missing tokens');
 				const playbackState = await fetchRemotePlaybackState(accessToken);
 				set(playbackState);
 			} catch (err: any) {

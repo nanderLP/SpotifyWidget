@@ -16,6 +16,8 @@ export const load: PageServerLoad = async (ctx) => {
 		const playback = await fetchRemotePlaybackState(accessToken);
 		return { playback };
 	} catch (e: any) {
+		console.log(e);
+
 		if (e.status === 401) {
 			// request refresh
 			const {
@@ -26,10 +28,12 @@ export const load: PageServerLoad = async (ctx) => {
 			// store new tokens
 			ctx.cookies.set('spotify_access_token', newAccessToken, {
 				maxAge: expires_in,
-				secure: true
+				secure: true,
+				httpOnly: false
 			});
-			ctx.cookies.set('spotify_refresh_token', newRefreshToken, {
-				secure: true
+			ctx.cookies.set('spotify_refresh_token', newRefreshToken || refreshToken, {
+				secure: true,
+				httpOnly: false
 			});
 			// retry
 			const playback = await fetchRemotePlaybackState(newAccessToken);

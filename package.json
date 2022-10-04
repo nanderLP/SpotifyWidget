@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"color.js": "^1.2.0",
 		"sass": "^1.55.0",
 		"unocss": "^0.45.26"
 	}

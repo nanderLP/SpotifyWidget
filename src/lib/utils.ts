@@ -20,13 +20,20 @@ const getTokensServer = (ctx: any) => {
 
 const getTokensBrowser = () => {
 	const params = new URLSearchParams(window.location.search);
+
 	const accessToken =
-		params.get('access_token') || document.cookie.split('spotify_access_token=')[1]?.split(';')[0];
+		document.cookie.split('spotify_access_token=')[1]?.split(';')[0] || params.get('access_token');
 	const refreshToken =
-		params.get('refresh_token') ||
-		document.cookie.split('spotify_refresh_token=')[1]?.split(';')[0];
+		document.cookie.split('spotify_refresh_token=')[1]?.split(';')[0] ||
+		params.get('refresh_token');
 
 	return { accessToken, refreshToken };
 };
 
-export { randomString, getTokensServer, getTokensBrowser };
+// tysm https://stackoverflow.com/a/6511606/19214879
+const determineTextColor = (rgb: Array<number>) => {
+	const luma = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+	return luma >= 165 ? '#000000' : '#ffffff';
+};
+
+export { randomString, getTokensServer, getTokensBrowser, determineTextColor };
