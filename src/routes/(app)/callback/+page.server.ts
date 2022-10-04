@@ -1,4 +1,4 @@
-import { requestToken, validateResponse } from '$lib/spotify';
+import { requestTokens, validateResponse } from '$lib/auth';
 import { SPOTIFY_CLIENT_SECRET } from '$env/static/private';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (ctx) => {
 
 	const code = validateResponse(ctx.url, stateCookie);
 
-	const authData = await requestToken(code, SPOTIFY_CLIENT_SECRET);
+	const authData = await requestTokens(code, SPOTIFY_CLIENT_SECRET);
 
 	return { authData };
 };

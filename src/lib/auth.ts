@@ -59,10 +59,7 @@ const validateResponse = (url: URL, cookieState: string) => {
 	return code;
 };
 
-const requestToken = async (
-	code: string,
-	spotifySecret: string
-): Promise<SpotifyAuthData> => {
+const requestTokens = async (code: string, spotifySecret: string): Promise<SpotifyAuthData> => {
 	const endpoint = 'https://accounts.spotify.com/api/token';
 
 	const formData = new URLSearchParams({
@@ -93,7 +90,37 @@ const requestToken = async (
 	return data;
 };
 
-const storeAuth = (data: SpotifyAuthData) => {
+const refreshTokens = async (
+	refreshToken: string,
+	spotifySecret: string
+): Promise<SpotifyAuthData> => {
+	const endpoint = 'https://accounts.spotify.com/api/token';
+
+	const formData = new URLSearchParams({
+		grant_type: 'refresh_token',
+		refresh_token: refreshToken
+	});
+
+	const authHeader = Buffer.from(PUBLIC_SPOTIFY_CLIENT_ID + ':' + spotifySecret).toString('base64');
+
+	const response = await fetch(endpoint, {
+		method: 'POST',
+		body: formData,
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Authorization: 'Basic ' + authHeader
+		}
+	});
+
+	if (!response.ok) {
+		const { error_description } = await response.json();
+
+		throw error(400, error_description);
+	}
+
+	const data = await response.json();
+
+	return data;
 };
 
-export { startFlow, validateResponse, requestToken, storeAuth };
+export { startFlow, validateResponse, requestTokens, refreshTokens };

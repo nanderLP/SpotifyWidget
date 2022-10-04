@@ -1,6 +1,5 @@
 <script lang="ts">
-	import 'uno.css';
-	import '$lib/style.scss';
+	import '$lib/styles/app.scss';
 </script>
 
 <div class="w-full min-h-screen grid place-items-center">

@@ -3,38 +3,6 @@ $dark: '(prefers-color-scheme: dark)';
 
 :root {
 	color-scheme: light dark;
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-size-adjust: 100%;
-}
-
-html {
-	font-size: 16px;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-p,
-span,
-ul,
-ol {
-	font-family: 'Roboto', sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-button {
-	font-family: 'Figtree', sans-serif;
 }
 
 button {
@@ -61,6 +29,6 @@ button {
 
 	@media #{$dark} {
 		outline-color: #fff;
-		color: black
+		color: black;
 	}
 }

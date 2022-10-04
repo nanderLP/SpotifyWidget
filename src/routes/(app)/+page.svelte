@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { startFlow } from '$lib/spotify';
+	import { startFlow } from '$lib/auth';
 </script>
 
 <main>
