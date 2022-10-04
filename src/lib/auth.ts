@@ -1,4 +1,4 @@
-import { PUBLIC_SPOTIFY_CLIENT_ID, PUBLIC_SPOTIFY_REDIRECT_URI } from '$env/static/public';
+import { PUBLIC_SPOTIFY_CLIENT_ID } from '$env/static/public';
 import { error } from '@sveltejs/kit';
 import { randomString } from './utils';
 
@@ -24,7 +24,7 @@ const startFlow = () => {
 		response_type: 'code',
 		client_id: PUBLIC_SPOTIFY_CLIENT_ID,
 		scope: scopes.join(' '),
-		redirect_uri: PUBLIC_SPOTIFY_REDIRECT_URI,
+		redirect_uri: window.location.origin + '/callback',
 		state
 	});
 
@@ -59,13 +59,17 @@ const validateResponse = (url: URL, cookieState: string) => {
 	return code;
 };
 
-const requestTokens = async (code: string, spotifySecret: string): Promise<SpotifyAuthData> => {
+const requestTokens = async (
+	code: string,
+	spotifySecret: string,
+	redirectUri: string
+): Promise<SpotifyAuthData> => {
 	const endpoint = 'https://accounts.spotify.com/api/token';
 
 	const formData = new URLSearchParams({
 		grant_type: 'authorization_code',
 		code,
-		redirect_uri: PUBLIC_SPOTIFY_REDIRECT_URI
+		redirect_uri: redirectUri
 	});
 
 	const authHeader = Buffer.from(PUBLIC_SPOTIFY_CLIENT_ID + ':' + spotifySecret).toString('base64');
